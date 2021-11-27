@@ -10,4 +10,4 @@ Walt Li
 
 ## Requirements
 - npm (see package.json for dependencies)\
-run the npm install command before starting the application with npm start.
+run the `npm install` command before starting the application with `npm start`.
