@@ -9,5 +9,5 @@ Database: MongoDB
 Walt Li
 
 ## Requirements
-- npm (see package.json for dependencies)
+- npm (see package.json for dependencies)\
 run the npm install command before starting the application with npm start.
