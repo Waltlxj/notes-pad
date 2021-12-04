@@ -11,3 +11,4 @@ Walt Li
 ## Requirements
 - npm (see package.json for dependencies)\
 run the `npm install` command before starting the application with `npm start`.
+- .env file needed to for specifiying PORT to run on and MongoDB credentials
