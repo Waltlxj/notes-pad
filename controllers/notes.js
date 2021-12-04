@@ -1,5 +1,6 @@
 const notesRouter = require('express').Router()
 const Note = require('../models/note')
+const User = require('../models/user')
 
 //get all notes
 notesRouter.get('/', (request, response) => {
@@ -16,29 +17,33 @@ notesRouter.get('/:id', (request, response, next) => {
         response.json(note)
         } else {
         response.status(404).end()
-    }
-})
-.catch(error => next(error))
+        }
+    })
+    .catch(error => next(error))
 })
 
-notesRouter.post('/', (request, response, next) => {
+notesRouter.post('/', async (request, response, next) => {
     const body = request.body
     if (!body.content) {
         return response.status(400).json({
         error: "Submission has no content"
         })
     }
+
+    const user = await User.findById(body.userId)
+
     const note = new Note({
         content: body.content,
         date: new Date(),
-        important: body.important || false
+        important: body.important || false,
+        user: user._id
     })
 
-    note.save()
-    .then(savedNote => {
-        response.json(savedNote)
-    })
-    .catch(error => next(error))
+    const savedNote = await note.save()
+    user.notes = user.notes.concat(savedNote._id)
+    await user.save()
+    
+    response.json(savedNote)
 })
 
 //change importance
